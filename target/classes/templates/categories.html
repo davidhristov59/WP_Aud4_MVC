@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+</head>
+<body>
+
+<h1>Categories page</h1>
+
+<a th:href="@{/hello}">Home</a>
+
+<h2>
+    <th:block th:text="'IP Address: ' + ${ipAddress}"> </th:block>
+</h2>
+
+<h2>
+    <th:block th:text="'User-Agent: ' + ${clientAgent}"></th:block>
+</h2>
+
+<th:block th:if="${session.user}">
+
+    <h2>Info about user</h2>
+
+    <div th:text="'Username: ' + ${session.user.username}"></div>
+    <div th:text="'Name: ' + ${session.user.name}"></div>
+    <div th:text="'Surname: ' + ${session.user.surname}"></div>
+
+    <div>
+        <a th:href="/servlet/logout">Logout</a>
+    </div>
+
+</th:block>
+
+<h3>
+    Categories:
+</h3>
+
+<ul> <!--nesto kako for each -->
+    <li th:each="category: ${categories}" th:text="${category.name} + ' (' + ${category.description} + ') '"></li>
+</ul>
+
+<h3>Add new category</h3>
+
+<form th:action="@{/servlet/thymeleaf/category}" th:method="POST">
+
+    <label for='name'>Name:</label>: <input id="name" type="text" name="name">
+    <label for='description'>Description:</label> <input id="description" type="text" name="description">
+
+    <input type="submit" value="Submit">
+
+</form>
+
+</body>
+</html>
